@@ -60,7 +60,6 @@ module.exports.getAuthURL = async () => {
   };
 };
 
-
 module.exports.getAccessToken = async (event) => {
   // The values used to instantiate the OAuthClient are at the top of the file
     const oAuth2Client = new google.auth.OAuth2(
@@ -104,7 +103,7 @@ module.exports.getAccessToken = async (event) => {
       });
   };
 
-  module.exports.getCalenarEvents = async (event) => {
+  module.exports.getCalendarEvents = async (event) => {
 
     const oAuth2Client = new google.auth.OAuth2(
       client_id,
