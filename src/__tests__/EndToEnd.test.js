@@ -13,7 +13,7 @@ describe('show/hide an event details', () => {
       slowMo: 250,
       ignoreDefaultArgs: ['--disable-extensions'] //ignores default settings that cause timeout errors
     });
-    
+
     page = await browser.newPage();
     await page.goto('http://localhost:3000/');
     await page.waitForSelector('.event-container');
