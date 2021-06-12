@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-concat */
 import { mockData } from './mock-data';
 import axios from 'axios';
 import NProgress from 'nprogress';
@@ -68,7 +69,6 @@ export const getEvents = async () => {
     NProgress.done();
     return mockData;
   }
-
 
   const token = await getAccessToken();
 

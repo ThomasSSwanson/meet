@@ -11,7 +11,7 @@ class App extends Component {
   state = {
     events: [],
     locations: [],
-    eventListSize: 10,
+    eventListSize: 15,
     limitedList: []
   }
 
