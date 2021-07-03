@@ -45,6 +45,9 @@ class App extends Component {
           this.setState({ events, locations: extractLocations(events), limitedList: limitedList });
         }
       });
+    }
+  }
+    
 
   componentWillUnmount(){
     this.mounted = false;
