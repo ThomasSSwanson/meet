@@ -42,6 +42,7 @@ class App extends Component {
     if ((code || isTokenValid) && this.mounted) {
       getEvents().then((events) => {
         if (this.mounted) {
+          let limitedList = limitEvents(events, this.state.eventListSize);
           this.setState({ events, locations: extractLocations(events), limitedList: limitedList });
         }
       });
