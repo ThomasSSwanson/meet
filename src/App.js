@@ -5,29 +5,46 @@ import './nprogress.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch'
 import NumberOfEvents from './NumberOfEvents'
-import { getEvents, extractLocations, limitEvents } from './api';
+import WelcomeScreen from './WelcomeScreen';
+import { getEvents, extractLocations, limitEvents, checkToken, getAccessToken } from './api';
 
 class App extends Component {
   state = {
     events: [],
     locations: [],
     eventListSize: 15,
-    limitedList: []
+    limitedList: [],
+    showWelcomeScreen: undefined
   }
 
-  componentDidMount() {
+  // componentDidMount() {
+  //   this.mounted = true;
+  //   getEvents().then((events) => {
+  //     if (this.mounted) {
+  //       let limitedList = limitEvents(events, this.state.eventListSize)
+  //       this.setState({ 
+  //         events, 
+  //         locations: extractLocations(events),
+  //         limitedList: limitedList });
+
+  //     }
+  //   });
+  // }
+
+  async componentDidMount() {
     this.mounted = true;
-    getEvents().then((events) => {
-      if (this.mounted) {
-        let limitedList = limitEvents(events, this.state.eventListSize)
-        this.setState({ 
-          events, 
-          locations: extractLocations(events),
-          limitedList: limitedList });
-
-      }
-    });
-  }
+    const accessToken = localStorage.getItem('access_token');
+    const isTokenValid = (await checkToken(accessToken)).error ? false :
+      true;
+    const searchParams = new URLSearchParams(window.location.search);
+    const code = searchParams.get("code");
+    this.setState({ showWelcomeScreen: !(code || isTokenValid) });
+    if ((code || isTokenValid) && this.mounted) {
+      getEvents().then((events) => {
+        if (this.mounted) {
+          this.setState({ events, locations: extractLocations(events), limitedList: limitedList });
+        }
+      });
 
   componentWillUnmount(){
     this.mounted = false;
@@ -55,6 +72,8 @@ class App extends Component {
 }
 
   render() {
+    if (this.state.showWelcomeScreen === undefined) return <div className="App" />
+
     let { limitedList } = this.state;
 
     return (
@@ -62,6 +81,7 @@ class App extends Component {
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
         <NumberOfEvents number={this.state.eventListSize} updateListSize={this.updateListSize} />
         <EventList events={limitedList} eventListSize={this.state.eventListSize} />
+        <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen} getAccessToken={() => { getAccessToken() }} />
       </div>
     );
   }
