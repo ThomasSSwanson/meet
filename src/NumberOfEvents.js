@@ -28,15 +28,14 @@ class NumberOfEvents extends Component {
 
     render() {
         return <div className='NumberOfEvents'>
+            <ErrorAlert text={this.state.errorText} />
             <input 
                 type="number"
                 className="number"
-                placeholder="15"
+                placeholder="Number of events"
                 value={this.state.eventListSize}
                 onChange={this.handleInputChange}
-
             />
-            <ErrorAlert text={this.state.errorText} />
         </div>
     }
 }

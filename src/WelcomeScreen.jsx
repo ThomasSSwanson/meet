@@ -25,12 +25,12 @@ function WelcomeScreen(props) {
           >
             <b>Sign in with google</b>
           </button>
-          Page 1
         </div>
       </div>
       <a
         href="https://thomassswanson.github.io/meet/privacy.html"
         rel="nofollow noopener"
+        class="privacy"
       >
         Privacy policy
       </a>

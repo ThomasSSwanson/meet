@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './App.css';
+import './App.scss';
 import './nprogress.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch'
@@ -81,6 +81,8 @@ class App extends Component {
     return (
       <div className='App'>
         <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen} getAccessToken={() => { getAccessToken() }} />
+        <h4>Explore upcoming events in Web Development from around the world!</h4>
+        <h4>Choose a city to get a list of events and popularity charts!</h4>
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
         <NumberOfEvents number={this.state.eventListSize} updateListSize={this.updateListSize} />
         <h4>Events in each city</h4>
